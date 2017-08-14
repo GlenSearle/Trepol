@@ -23,6 +23,7 @@ int relayPinTwo = A2;
 int relayPinThree = A3;
 int relayPinFour = A4;
 int relayPinFive = A5;
+byte relayPins[] = {A0, A1, A2, A3, A4, A5};
 
 // The pins going to the LEDs on the Trepol dislay
 int displayLightZero = 3;
@@ -32,6 +33,7 @@ int displayLightThree = 7;
 int displayLightFour = 8;
 int displayLightFive = 9;
 int displayLightSix = 10;
+byte displayLightPins[] = {3, 5, 6, 7, 8, 9, 10};
 
 // the setup routine runs once when you press reset:
 void setup() {
@@ -42,12 +44,18 @@ void setup() {
   pinMode(pushButtonOnOff, INPUT);
   pinMode(pushButtonUpDown, INPUT);
 
-  pinMode(relayPinZero, OUTPUT);
-  pinMode(relayPinOne, OUTPUT);
-  pinMode(relayPinTwo, OUTPUT);
-  pinMode(relayPinThree, OUTPUT);
-  pinMode(relayPinFour, OUTPUT);
-  pinMode(relayPinFive, OUTPUT);
+
+for(int i = 0; i < 5; i++) {
+    pinMode(relayPins[i], OUTPUT);
+  }
+  
+/*
+ 
+for(int i = 0; i < 7; i++) {
+    pinMode(displayLightPins[i], OUTPUT);
+}
+*/
+
 
   pinMode(displayLightZero, OUTPUT);
 // This pin blocks two buttons.
@@ -68,24 +76,45 @@ void setup() {
 // the loop routine runs over and over again forever:
 void loop() {
   // read the input pin:
-  int buttonStateLight = digitalRead(pushButtonLight);
+
+  if (not digitalRead(pushButtonLight))
+  {
+    Serial.println("Light button has been pressed");
+      buttonLightPressed();
+  }
+
+  if (not digitalRead(pushButtonOnOff))
+  {
+    Serial.println("OnOff button has been pressed");
+      buttonOnOffPressed();
+  }
+
+  if (not digitalRead(pushButtonUpDown))
+  {
+    Serial.println("UpDown button has been pressed");
+      buttonUpDownPressed();
+  }
+  
   int buttonStateOnOff = digitalRead(pushButtonOnOff);
   int buttonStateUpDown = digitalRead(pushButtonUpDown);
-  // print out the state of the button:
-  Serial.print("Light button: ");
-  Serial.println(buttonStateLight);
-  Serial.print("OnOff button: ");
-  Serial.println(buttonStateOnOff);
-  Serial.print("UpDown: ");
-  Serial.println(buttonStateUpDown);
-  Serial.println("");
-  delay(1000);        // delay in between reads for stability
+
+  blinknLights();
+  delay(300);        // delay in between reads for stability
 }
 
-int buttonLightPressed(){}
+int blinknLights(){
+  
+  }
 
-int buttonOnOffPressed(){}
+int buttonLightPressed(){
+  
+  }
 
-int buttonUpDownPressed(){}
 
+int buttonOnOffPressed(){
+  
+  }
 
+int buttonUpDownPressed(){
+  
+  }
