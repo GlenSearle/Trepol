@@ -4,7 +4,6 @@ The function of the Arduino is to replace the original Trepol controler.
 There are three buttons on the control panel which are read by the Arduino.
 The functions of the extractor fan are powered on using relays conected to analog pins A0 - A5
 The remaining pins of the Trepol control panel drive the little LEDs on the display, these LEDs share lines with the buttons. 
-
 The Arduino USB will be used to communicate with a Raspberry Pi.
 */
 
@@ -34,6 +33,10 @@ int displayLightFour = 8;
 int displayLightFive = 9;
 int displayLightSix = 10;
 byte displayLightPins[] = {3, 5, 6, 7, 8, 9, 10};
+
+byte buttonStatusLights;
+byte buttonStateOnOff;
+byte buttonStateUpDown;
 
 // the setup routine runs once when you press reset:
 void setup() {
@@ -94,12 +97,44 @@ void loop() {
     Serial.println("UpDown button has been pressed");
       buttonUpDownPressed();
   }
+
+  Serial.print("Light status: ");
+  if (buttonStatusLights)
+  {
+  Serial.println("Light");
+  }
+  else
+  {
+  Serial.println("Dark");
+  }
+
+  Serial.print("On Off status: ");
+  if (buttonStateOnOff)
+  {
+  Serial.println("On");
+  }
+  else
+  {
+  Serial.println("Off");
+  }
   
-  int buttonStateOnOff = digitalRead(pushButtonOnOff);
-  int buttonStateUpDown = digitalRead(pushButtonUpDown);
+  Serial.print("Up Down status: ");
+  if (buttonStateUpDown)
+  {
+  Serial.println("Up");
+  }
+  else
+  {
+  Serial.println("Down");
+  }
+
+  int buttonStatusLights;
+  int buttonStateOnOff;
+  int buttonStateUpDown;
+ 
 
   blinknLights();
-  delay(300);        // delay in between reads for stability
+  delay(1000);        // delay in between reads for stability
 }
 
 int blinknLights(){
@@ -107,14 +142,35 @@ int blinknLights(){
   }
 
 int buttonLightPressed(){
-  
+  if (buttonStatusLights)
+   {
+    buttonStatusLights = 0;
+   }
+   else
+   {
+    buttonStatusLights = 1;
+   }
   }
 
 
 int buttonOnOffPressed(){
-  
+    if (buttonStateOnOff)
+   {
+    buttonStateOnOff = 0;
+   }
+   else
+   {
+    buttonStateOnOff = 1;
+   }
   }
 
 int buttonUpDownPressed(){
-  
+    if (buttonStateUpDown)
+   {
+    buttonStateUpDown = 0;
+   }
+   else
+   {
+    buttonStateUpDown = 1;
+   }
   }
