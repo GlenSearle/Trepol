@@ -22,7 +22,7 @@ int relayPinTwo = A2;
 int relayPinThree = A3;
 int relayPinFour = A4;
 int relayPinFive = A5;
-byte relayPins[] = {A0, A1, A2, A3, A4, A5};
+char relayPins[] = {A0, A1, A2, A3, A4, A5};
 
 // The pins going to the LEDs on the Trepol dislay
 int displayLightZero = 3;
@@ -145,10 +145,12 @@ int buttonLightPressed(){
   if (buttonStatusLights)
    {
     buttonStatusLights = 0;
+    digitalWrite(A0, LOW);
    }
    else
    {
     buttonStatusLights = 1;
+    digitalWrite(A0, HIGH);
    }
   }
 
@@ -157,10 +159,12 @@ int buttonOnOffPressed(){
     if (buttonStateOnOff)
    {
     buttonStateOnOff = 0;
+    digitalWrite(A1, LOW);
    }
    else
    {
     buttonStateOnOff = 1;
+    digitalWrite(A1, HIGH);
    }
   }
 
@@ -168,9 +172,11 @@ int buttonUpDownPressed(){
     if (buttonStateUpDown)
    {
     buttonStateUpDown = 0;
+    digitalWrite(A2, LOW);
    }
    else
    {
     buttonStateUpDown = 1;
+    digitalWrite(A2, HIGH);
    }
   }
